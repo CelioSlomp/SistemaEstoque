@@ -3,20 +3,20 @@ package br.edu.ifc.estoque.produtos.entity;
 public class Produto {
     int id;
     String nome;
+    String marca;
     int tipo;
     String descricao;
     int quantidade;
     String unidade;
     double vlrPago;
 
-    Produto(int id, String nome, int tipo, String descricao, int quantidade, String unidade, double vlrPago){
+    Produto(int id, String nome, String marca,int tipo, String descricao, int quantidade, String unidade){
         this.id = id;
         this.nome = nome;
+        this.marca = marca;
         this.tipo = tipo;
         this.descricao = descricao;
-        this.quantidade = quantidade;
         this.unidade = unidade;
-        this.vlrPago = vlrPago;
     }
 
     public String getDescricao() {
@@ -47,5 +47,7 @@ public class Produto {
         return vlrPago;
     }
 
-    
+    public String getMarca() {
+        return marca;
+    }
 }
