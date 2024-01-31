@@ -22,3 +22,10 @@
 body{
     margin: 0;
 }
+
+.formulario{
+    text-align: center;
+    align-items: center;
+    background-color: rgb(231, 231, 231);
+    top: 50%;
+}
