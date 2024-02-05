@@ -1,4 +1,4 @@
-function enviarFormulario() {
+function enviarCadastroProduto() {
     var nome = document.getElementById('nome').value;
     var marca = document.getElementById('marca').value;
     var tipo = document.getElementById('tipo').value;

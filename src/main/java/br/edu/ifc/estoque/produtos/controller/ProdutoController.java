@@ -45,10 +45,10 @@ public class ProdutoController {
             statement.setInt(3, produto.getTipo());
             statement.setString(4, produto.getDescricao());
             statement.setString(5, produto.getUnidade());
-            statement.setInt(5, 0);
-            statement.setDouble(5, 0);
+            statement.setInt(6, 0);
+            statement.setDouble(7, 0);
             
-            // Executar a consulta de inserção
+            // executar o sql
             int linhasAfetadas = statement.executeUpdate();
             
             if (linhasAfetadas > 0) {
@@ -56,7 +56,6 @@ public class ProdutoController {
             } else {
                 System.out.println("Produto não Inserido");
             }
-            conn.commit();
             
         } catch (SQLException e) {
             System.err.println("Erro ao inserir produto: " + e.getMessage());

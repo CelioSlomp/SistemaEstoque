@@ -1,5 +1,7 @@
 package br.edu.ifc.estoque.produtos.entity;
 
+import java.util.HashMap;
+
 public class Produto {
     int id;
     String nome;
@@ -9,6 +11,8 @@ public class Produto {
     int quantidade;
     String unidade;
     double vlrPago;
+    HashMap<Double, Integer> valoresPagos; 
+    
 
     Produto(int id, String nome, String marca,int tipo, String descricao, int quantidade, String unidade){
         this.id = id;
