@@ -18,3 +18,17 @@
     width: 90%;
     height: 40px;
 }
+
+table {
+    background-color: rgb(231, 231, 231);
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #000000;
+}
+
+td, th {
+    border: 1px solid #000000;
+    text-align: center;
+    padding: 4px;
+}

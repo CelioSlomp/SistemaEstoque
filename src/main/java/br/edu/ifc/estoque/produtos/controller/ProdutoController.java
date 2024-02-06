@@ -2,12 +2,18 @@ package br.edu.ifc.estoque.produtos.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.edu.ifc.estoque.produtos.entity.Produto;
 import br.edu.ifc.estoque.produtos.bd.BancoDados;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +25,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/produtos")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class ProdutoController {
-    @GetMapping("/listaProdutos")
-    public String listaProdutos(){
-        return "lista_produtos";
+
+    @GetMapping("/visualizarProdutos")
+    public String visualizarProdutos() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResult = "";
+        String sql = "SELECT * FROM produto";
+        
+        try (Connection conn = BancoDados.getConexaoMySQL();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery()) {
+            
+            List<Produto> produtos = new ArrayList<>();
+            
+            while (resultSet.next()) {
+                Produto produto = new Produto();
+                produto.setId(resultSet.getInt("id"));
+                produto.setNome(resultSet.getString("nome"));
+                produto.setMarca(resultSet.getString("marca"));
+                produto.setTipo(resultSet.getInt("tipo"));
+                produto.setDescricao(resultSet.getString("descricao"));
+                produto.setUnidade(resultSet.getString("unidade"));
+                produto.setQuantidade(resultSet.getInt("quantidade"));
+                produto.setVlrPago(resultSet.getDouble("valorPago"));
+                
+                produtos.add(produto);
+            }
+            
+            // Converter lista de produtos para JSON
+            jsonResult = objectMapper.writeValueAsString(produtos);
+            System.out.println(jsonResult);
+            
+        } catch (SQLException | JsonProcessingException e) {
+            System.err.println("Erro ao recuperar produtos do banco de dados: " + e.getMessage());
+        }
+
+        return jsonResult;
     }
 
     @PostMapping("/cadastrarProduto")
@@ -60,11 +99,5 @@ public class ProdutoController {
         } catch (SQLException e) {
             System.err.println("Erro ao inserir produto: " + e.getMessage());
         }
-
-        
-        
-    
     }
-
-    
 }

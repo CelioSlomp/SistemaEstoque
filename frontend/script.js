@@ -61,3 +61,43 @@ function enviarCadastroCliente() {
     };
     xhr.send(dadosJSON);
 }
+
+function exibirProdutos(jsonData) {
+    // Converter o JSON em um array de objetos JavaScript
+    const produtos = jsonData;
+
+    // Selecionar o elemento da tabela onde os dados serão inseridos
+    const tableBody = document.getElementById('tabelaProdutos').getElementsByTagName('tbody')[0];
+    
+    // Limpar qualquer conteúdo existente na tabela
+    tableBody.innerHTML = '';
+
+    // Iterar sobre o array de produtos e adicionar cada produto como uma linha na tabela
+    produtos.forEach(produto => {
+        const newRow = tableBody.insertRow();
+        newRow.innerHTML = `
+            <td>${produto.id}</td>
+            <td>${produto.nome}</td>
+            <td>${produto.marca}</td>
+            <td>${produto.tipo}</td>
+            <td>${produto.unidade}</td>
+            <td>${produto.quantidade}</td>
+            <td>${produto.vlrPago}</td>
+        `;
+    });
+}
+
+fetch('http://localhost:8080/produtos/visualizarProdutos')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erro ao carregar os produtos');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('oi');
+    exibirProdutos(data);
+  })
+  .catch(error => {
+    console.error('Erro:', error);
+  });
