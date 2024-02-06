@@ -33,7 +33,7 @@ public class ProdutoController {
         System.out.println("Descrição: " + produto.getDescricao());
         System.out.println("Unidade: " + produto.getUnidade());
 
-        String sql = "INSERT INTO produto (nome, marca, tipo, descricao, unidade, quantidade, vlrPago) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO produto (nome, marca, tipo, descricao, unidade, quantidade, valorPago) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         try {
             Connection conn = BancoDados.getConexaoMySQL();
