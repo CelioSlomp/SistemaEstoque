@@ -84,15 +84,47 @@ function exibirProdutos(jsonData) {
 }
 
 fetch('http://localhost:8080/produtos/visualizarProdutos')
-  .then(response => {
+.then(response => {
     if (!response.ok) {
       throw new Error('Erro ao carregar os produtos');
     }
     return response.json();
-  })
-  .then(data => {
+})
+.then(data => {
     exibirProdutos(data);
-  })
-  .catch(error => {
+})
+.catch(error => {
     console.error('Erro:', error);
-  });
+});
+
+
+function exibirClientes(jsonData) {
+    const clientes = jsonData;
+
+    const tableBody = document.getElementById('tabelaClientes').getElementsByTagName('tbody')[0];
+    
+    tableBody.innerHTML = '';
+
+    clientes.forEach(cliente => {
+        const newRow = tableBody.insertRow();
+        newRow.innerHTML = `
+            <td>${cliente.id}</td>
+            <td>${cliente.nome}</td>
+            <td>${cliente.bomPag}</td>
+        `;
+    });
+}
+
+fetch('http://localhost:8080/clientes/visualizarClientes')
+.then(response => {
+    if (!response.ok) {
+      throw new Error('Erro ao carregar os clientes');
+    }
+    return response.json();
+})
+.then(data => {
+    exibirClientes(data);
+})
+.catch(error => {
+    console.error('Erro:', error);
+});

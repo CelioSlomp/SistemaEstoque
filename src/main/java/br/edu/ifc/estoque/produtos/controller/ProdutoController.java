@@ -54,7 +54,6 @@ public class ProdutoController {
             
             // Converter lista de produtos para JSON
             jsonResult = objectMapper.writeValueAsString(produtos);
-            System.out.println(jsonResult);
             
         } catch (SQLException | JsonProcessingException e) {
             System.err.println("Erro ao recuperar produtos do banco de dados: " + e.getMessage());
