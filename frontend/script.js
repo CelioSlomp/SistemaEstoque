@@ -131,5 +131,27 @@ fetch('http://localhost:8080/clientes/visualizarClientes')
 
 function deletarCliente() {
     var id = document.getElementById('deleteCliente').value;
-    console.log(id);
+
+    var dados = {
+        "id": id
+    };
+
+    var dadosJSON = JSON.stringify(dados);
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('POST', 'http://localhost:8080/clientes/deletarCliente', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log('Resposta do servidor:', xhr.responseText);
+        } else {
+            console.error('Erro na solicitação:', xhr.statusText);
+        }
+    };
+    xhr.onerror = function () {
+        console.error('Erro de rede');
+    };
+    xhr.send(dadosJSON);
 }

@@ -86,4 +86,29 @@ public class ClienteController {
         }
     
     }
+
+    @PostMapping("/deletarCliente")
+    public void deletarCliente(@RequestBody Cliente cliente){
+        String id = String.valueOf(cliente.getId());
+        System.out.println("ID a ser deletado:" + id);
+        String sql = "DELETE FROM cliente WHERE cliente.id=" + id;
+        
+        try {
+            Connection conn = BancoDados.getConexaoMySQL();
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            // executar o sql
+            int linhasAfetadas = statement.executeUpdate();
+            
+            if (linhasAfetadas > 0) {
+                System.out.println("Cliente Deletado!");
+            } else {
+                System.out.println("Cliente não Deletado");
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Erro ao inserir cliente: " + e.getMessage());
+        }
+    
+    }
 }
