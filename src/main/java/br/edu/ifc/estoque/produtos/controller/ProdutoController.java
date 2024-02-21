@@ -30,7 +30,7 @@ public class ProdutoController {
     public String visualizarProdutos() {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonResult = "";
-        String sql = "SELECT * FROM produto";
+        String sql = "select * from produto, valores where id=idproduto;";
         
         try (Connection conn = BancoDados.getConexaoMySQL();
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -39,16 +39,15 @@ public class ProdutoController {
             List<Produto> produtos = new ArrayList<>();
             
             while (resultSet.next()) {
-                Produto produto = new Produto();
-                produto.setId(resultSet.getInt("id"));
-                produto.setNome(resultSet.getString("nome"));
-                produto.setMarca(resultSet.getString("marca"));
-                produto.setTipo(resultSet.getInt("tipo"));
-                produto.setDescricao(resultSet.getString("descricao"));
-                produto.setUnidade(resultSet.getString("unidade"));
-                produto.setQuantidade(resultSet.getInt("quantidade"));
-                produto.setVlrPago(resultSet.getDouble("valorPago"));
-                
+                Produto produto = new Produto(resultSet.getInt("id"),
+                                              resultSet.getString("nome"),
+                                              resultSet.getString("marca"),
+                                              resultSet.getInt("tipo"),
+                                              resultSet.getString("descricao"),
+                                              resultSet.getString("unidade"),
+                                              resultSet.getInt("quantidade"),
+                                              resultSet.getDouble("valor"));
+
                 produtos.add(produto);
             }
             

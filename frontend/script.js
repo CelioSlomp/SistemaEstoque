@@ -128,3 +128,8 @@ fetch('http://localhost:8080/clientes/visualizarClientes')
 .catch(error => {
     console.error('Erro:', error);
 });
+
+function deletarCliente() {
+    var id = document.getElementById('deleteCliente').value;
+    console.log(id);
+}

@@ -12,16 +12,16 @@ public class Produto {
     String unidade;
     double vlrPago;
     HashMap<Double, Integer> valoresPagos; 
-    
-    public Produto(){}
 
-    public Produto(int id, String nome, String marca,int tipo, String descricao, int quantidade, String unidade){
+    public Produto(int id, String nome, String marca,int tipo, String descricao, String unidade, int quantidade, double vlrPago){
         this.id = id;
         this.nome = nome;
         this.marca = marca;
         this.tipo = tipo;
         this.descricao = descricao;
+        this.quantidade = quantidade;
         this.unidade = unidade;
+        this.vlrPago = vlrPago;
     }
 
     public String getDescricao() {
