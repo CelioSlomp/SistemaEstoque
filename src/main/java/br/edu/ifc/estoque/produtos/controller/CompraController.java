@@ -29,7 +29,7 @@ public class CompraController {
     public String lista_compras() {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonResult = "";
-        String sql = "SELECT * FROM compra";
+        String sql = "select produto.nome, compra.idProduto, compra.quantidade, compra.valor from produto, compra where produto.id=compra.idProduto;";
 
         try (Connection conn = BancoDados.getConexaoMySQL();
                 PreparedStatement statement = conn.prepareStatement(sql);
@@ -38,17 +38,18 @@ public class CompraController {
             List<Compra> compras = new ArrayList<>();
 
             while (resultSet.next()) {
-                Compra compra = new Compra(resultSet.getInt("idProduto"),
+                Compra compra = new Compra(
+                        resultSet.getString("nome"),
+                        resultSet.getInt("idProduto"),
                         resultSet.getInt("quantidade"),
-                        resultSet.getDouble("vlrPago"));
+                        resultSet.getDouble("valor"));
 
                 compras.add(compra);
             }
 
-            // Converter lista de clientes para JSON
             jsonResult = objectMapper.writeValueAsString(compras);
         } catch (SQLException | JsonProcessingException e) {
-            System.err.println("Erro ao recuperar produtos do banco de dados: " + e.getMessage());
+            System.err.println("Erro ao recuperar compras do banco de dados: " + e.getMessage());
         }
 
         return jsonResult;

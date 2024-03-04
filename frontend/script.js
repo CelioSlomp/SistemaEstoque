@@ -186,3 +186,34 @@ function enviarCompra() {
     };
     xhr.send(dadosJSON);
 }
+
+function exibirClientes(jsonData) {
+    const compras = jsonData;
+
+    const tableBody = document.getElementById('tabelaCompras').getElementsByTagName('tbody')[0];
+
+    tableBody.innerHTML = '';
+
+    compras.forEach(compra => {
+        const newRow = tableBody.insertRow();
+        newRow.innerHTML = `
+            <td>${compra.nome}</td>
+            <td>${compra.quantidade}</td>
+            <td>${compra.vlrPago}</td>
+        `;
+    });
+}
+
+fetch('http://localhost:8080/compras/listaCompras')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao carregar as compras');
+        }
+        return response.json();
+    })
+    .then(data => {
+        exibirClientes(data);
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+    });
