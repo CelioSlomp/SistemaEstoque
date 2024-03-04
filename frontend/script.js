@@ -66,7 +66,7 @@ function exibirProdutos(jsonData) {
     const produtos = jsonData;
 
     const tableBody = document.getElementById('tabelaProdutos').getElementsByTagName('tbody')[0];
-    
+
     tableBody.innerHTML = '';
 
     produtos.forEach(produto => {
@@ -84,25 +84,25 @@ function exibirProdutos(jsonData) {
 }
 
 fetch('http://localhost:8080/produtos/visualizarProdutos')
-.then(response => {
-    if (!response.ok) {
-      throw new Error('Erro ao carregar os produtos');
-    }
-    return response.json();
-})
-.then(data => {
-    exibirProdutos(data);
-})
-.catch(error => {
-    console.error('Erro:', error);
-});
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao carregar os produtos');
+        }
+        return response.json();
+    })
+    .then(data => {
+        exibirProdutos(data);
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+    });
 
 
 function exibirClientes(jsonData) {
     const clientes = jsonData;
 
     const tableBody = document.getElementById('tabelaClientes').getElementsByTagName('tbody')[0];
-    
+
     tableBody.innerHTML = '';
 
     clientes.forEach(cliente => {
@@ -116,18 +116,18 @@ function exibirClientes(jsonData) {
 }
 
 fetch('http://localhost:8080/clientes/visualizarClientes')
-.then(response => {
-    if (!response.ok) {
-      throw new Error('Erro ao carregar os clientes');
-    }
-    return response.json();
-})
-.then(data => {
-    exibirClientes(data);
-})
-.catch(error => {
-    console.error('Erro:', error);
-});
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao carregar os clientes');
+        }
+        return response.json();
+    })
+    .then(data => {
+        exibirClientes(data);
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+    });
 
 function deletarCliente() {
     var id = document.getElementById('deleteCliente').value;
@@ -141,6 +141,37 @@ function deletarCliente() {
     var xhr = new XMLHttpRequest();
 
     xhr.open('POST', 'http://localhost:8080/clientes/deletarCliente', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log('Resposta do servidor:', xhr.responseText);
+        } else {
+            console.error('Erro na solicitação:', xhr.statusText);
+        }
+    };
+    xhr.onerror = function () {
+        console.error('Erro de rede');
+    };
+    xhr.send(dadosJSON);
+}
+
+function enviarCompra() {
+    var id = document.getElementById('Codigo').value;
+    var quantidade = document.getElementById('Quantidade').value;
+    var preco = document.getElementById('Preco').value;
+
+    var dados = {
+        "id": id,
+        "quantidade": quantidade,
+        "vlrPago": preco
+    };
+
+    var dadosJSON = JSON.stringify(dados);
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('POST', 'http://localhost:8080/compras/realizarCompra', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = function () {

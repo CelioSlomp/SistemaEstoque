@@ -1,29 +1,26 @@
 package br.edu.ifc.estoque.produtos.entity;
 
-import java.util.ArrayList;
-
 public class Compra {
     int id;
-    ArrayList<Produto> produtos;
-    ArrayList<Double> vlrPago;
+    int quantidade;
+    double vlrPago;
 
-    Compra(int id, ArrayList<Produto> produtos, ArrayList<Double> vlrPago){
+    Compra(int id, int quantidade, double vlrPago) {
         this.id = id;
-        this.produtos = produtos;
+        this.quantidade = quantidade;
         this.vlrPago = vlrPago;
     }
 
     public int getId() {
         return id;
     }
-    
-    public ArrayList<Produto> getProdutos() {
-        return produtos;
-    }
-    
-    public ArrayList<Double> getVlrPago() {
-        return vlrPago;
+
+    public int getQuantidade() {
+        return quantidade;
     }
 
+    public double getVlrPago() {
+        return vlrPago;
+    }
 
 }
