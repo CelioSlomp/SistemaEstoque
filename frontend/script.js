@@ -162,7 +162,7 @@ function enviarCompra() {
     var preco = document.getElementById('Preco').value;
 
     var dados = {
-        "id": id,
+        "idProduto": id,
         "quantidade": quantidade,
         "vlrPago": preco
     };

@@ -32,10 +32,9 @@ public class BancoDados {
 			} else {
 				System.out.println("Nada foi deletado");
 			}
-
 		} catch (SQLException e) {
 			System.err.println("Erro ao deletar: " + e.getMessage());
 		}
-
 	}
+
 }

@@ -1,18 +1,18 @@
 package br.edu.ifc.estoque.produtos.entity;
 
 public class Compra {
-    int id;
+    int idProduto;
     int quantidade;
     double vlrPago;
 
-    Compra(int id, int quantidade, double vlrPago) {
-        this.id = id;
+    public Compra(int idProduto, int quantidade, double vlrPago) {
+        this.idProduto = idProduto;
         this.quantidade = quantidade;
         this.vlrPago = vlrPago;
     }
 
-    public int getId() {
-        return id;
+    public int getIdProduto() {
+        return idProduto;
     }
 
     public int getQuantidade() {
