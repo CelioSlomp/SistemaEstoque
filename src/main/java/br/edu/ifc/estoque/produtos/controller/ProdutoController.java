@@ -31,29 +31,29 @@ public class ProdutoController {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonResult = "";
         String sql = "select * from produto, valores where id=idproduto;";
-        
+
         try (Connection conn = BancoDados.getConexaoMySQL();
-            PreparedStatement statement = conn.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery()) {
-            
+                PreparedStatement statement = conn.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery()) {
+
             List<Produto> produtos = new ArrayList<>();
-            
+
             while (resultSet.next()) {
                 Produto produto = new Produto(resultSet.getInt("id"),
-                                              resultSet.getString("nome"),
-                                              resultSet.getString("marca"),
-                                              resultSet.getInt("tipo"),
-                                              resultSet.getString("descricao"),
-                                              resultSet.getString("unidade"),
-                                              resultSet.getInt("quantidade"),
-                                              resultSet.getDouble("valor"));
+                        resultSet.getString("nome"),
+                        resultSet.getString("marca"),
+                        resultSet.getInt("tipo"),
+                        resultSet.getString("descricao"),
+                        resultSet.getString("unidade"),
+                        resultSet.getInt("quantidade"),
+                        resultSet.getDouble("valor"));
 
                 produtos.add(produto);
             }
-            
+
             // Converter lista de produtos para JSON
             jsonResult = objectMapper.writeValueAsString(produtos);
-            
+
         } catch (SQLException | JsonProcessingException e) {
             System.err.println("Erro ao recuperar produtos do banco de dados: " + e.getMessage());
         }
@@ -70,12 +70,12 @@ public class ProdutoController {
         System.out.println("Descrição: " + produto.getDescricao());
         System.out.println("Unidade: " + produto.getUnidade());
 
-        String sql = "INSERT INTO produto (nome, marca, tipo, descricao, unidade, quantidade, valorPago) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        
+        String sql = "INSERT INTO produto (nome, marca, tipo, descricao, unidade, quantidade) VALUES (?, ?, ?, ?, ?, ?)";
+
         try {
             Connection conn = BancoDados.getConexaoMySQL();
             PreparedStatement statement = conn.prepareStatement(sql);
-            
+
             // Atribuir valores aos parâmetros
             statement.setString(1, produto.getNome());
             statement.setString(2, produto.getMarca());
@@ -83,17 +83,16 @@ public class ProdutoController {
             statement.setString(4, produto.getDescricao());
             statement.setString(5, produto.getUnidade());
             statement.setInt(6, 0);
-            statement.setDouble(7, 0);
-            
+
             // executar o sql
             int linhasAfetadas = statement.executeUpdate();
-            
+
             if (linhasAfetadas > 0) {
                 System.out.println("Produto Inserido!");
             } else {
                 System.out.println("Produto não Inserido");
             }
-            
+
         } catch (SQLException e) {
             System.err.println("Erro ao inserir produto: " + e.getMessage());
         }
