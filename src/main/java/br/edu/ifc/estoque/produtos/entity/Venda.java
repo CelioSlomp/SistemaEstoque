@@ -1,55 +1,32 @@
 package br.edu.ifc.estoque.produtos.entity;
 
-import java.util.ArrayList;
-
 public class Venda {
-    int id;
-    Cliente cliente;
-    ArrayList<Produto> produtos;
-    ArrayList<Integer> quantidade;
-    double vlrTotalPago;
-    double vlrTotalVend;
-    double vlrTotalGastos;
-    double vlrTotalLucro;
+    int idProduto;
+    int idCliente;
+    int quantidade;
+    double valor;
 
-    Venda(int id, Cliente cliente, ArrayList<Produto> produtos, ArrayList<Integer> quantidade){
-        this.id = id;
-        this.cliente = cliente;
-        this.produtos = produtos;
+    public Venda(int idProduto, int idCliente, int quantidade, double valor) {
+        this.idProduto = idProduto;
+        this.idCliente = idCliente;
         this.quantidade = quantidade;
+        this.valor = valor;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public int getId() {
-        return id;
+    public int getIdProduto() {
+        return idProduto;
     }
 
-    public ArrayList<Produto> getProdutos() {
-        return produtos;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public double getVlrTotal_gastos() {
-        return vlrTotalGastos;
-    }
-    
-    public double getVlrTotal_lucro() {
-        return vlrTotalLucro;
-    }
-    
-    public double getVlrTotal_pago() {
-        return vlrTotalPago;
-    }
-    
-    public double getVlrTotal_vend() {
-        return vlrTotalVend;
+    public double getValor() {
+        return valor;
     }
 
-    public void gerarVlrTotalPago(){
-        for (int i = 0; i < this.produtos.size(); i++){
-            this.vlrTotalPago += this.produtos.get(i).getVlrPago()*this.quantidade.get(i);
-        }
-    }
 }

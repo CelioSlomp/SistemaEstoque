@@ -27,7 +27,12 @@ CREATE TABLE produto (
   PRIMARY KEY (id)
 )
 
-
+CREATE TABLE venda (
+  idCliente int NOT NULL,
+  idProduto int NOT NULL,
+  quantidade int NOT NULL,
+  valor double NOT NULL
+)
 
 select * from produto;
 select * from cliente;

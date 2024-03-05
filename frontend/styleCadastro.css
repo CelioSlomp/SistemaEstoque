@@ -1,4 +1,4 @@
-.div_meio{
+.div_meio {
     background-color: rgb(231, 231, 231);
     border-color: black;
     position: absolute;
@@ -12,6 +12,7 @@
     transform: translate(-50%, -50%);
     text-align: center;
     align-items: center;
+
 }
 
 a {
@@ -27,7 +28,8 @@ body {
 }
 
 .formulario form {
-    width: 100%; /* Ajuste a largura do formulário conforme necessário */
+    width: 100%;
+    /* Ajuste a largura do formulário conforme necessário */
     padding: 20px;
     border: 1px solid #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

@@ -217,3 +217,36 @@ fetch('http://localhost:8080/compras/listaCompras')
     .catch(error => {
         console.error('Erro:', error);
     });
+
+function enviarCompra() {
+    var idProduto = document.getElementById('idProduto').value;
+    var idCliente = document.getElementById('idCliente').value;
+    var quantidade = document.getElementById('Quantidade').value;
+    var valor = document.getElementById('Valor').value;
+
+    var dados = {
+        "idProduto": idProduto,
+        "idCliente": idCliente,
+        "quantidade": quantidade,
+        "valor": preco
+    };
+
+    var dadosJSON = JSON.stringify(dados);
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('POST', 'http://localhost:8080/vendas/realizarVenda', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log('Resposta do servidor:', xhr.responseText);
+        } else {
+            console.error('Erro na solicitação:', xhr.statusText);
+        }
+    };
+    xhr.onerror = function () {
+        console.error('Erro de rede');
+    };
+    xhr.send(dadosJSON);
+}
