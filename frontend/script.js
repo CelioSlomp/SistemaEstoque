@@ -218,7 +218,7 @@ fetch('http://localhost:8080/compras/listaCompras')
         console.error('Erro:', error);
     });
 
-function enviarCompra() {
+function enviarVenda() {
     var idProduto = document.getElementById('idProduto').value;
     var idCliente = document.getElementById('idCliente').value;
     var quantidade = document.getElementById('Quantidade').value;
@@ -228,7 +228,7 @@ function enviarCompra() {
         "idProduto": idProduto,
         "idCliente": idCliente,
         "quantidade": quantidade,
-        "valor": preco
+        "valor": valor
     };
 
     var dadosJSON = JSON.stringify(dados);
