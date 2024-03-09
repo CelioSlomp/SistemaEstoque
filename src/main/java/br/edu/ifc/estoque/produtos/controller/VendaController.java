@@ -2,13 +2,19 @@ package br.edu.ifc.estoque.produtos.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.edu.ifc.estoque.produtos.bd.BancoDados;
+import br.edu.ifc.estoque.produtos.entity.Compra;
 import br.edu.ifc.estoque.produtos.entity.Venda;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +28,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class VendaController {
     @GetMapping("/listaVendas")
     public String listaVendas() {
-        return "lista_vendas";
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResult = "";
+        String sql = "select * from venda;";
+
+        try (Connection conn = BancoDados.getConexaoMySQL();
+                PreparedStatement statement = conn.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery()) {
+
+            List<Compra> compras = new ArrayList<>();
+
+            while (resultSet.next()) {
+                Compra compra = new Compra(
+                        resultSet.getString("nome"),
+                        resultSet.getInt("idProduto"),
+                        resultSet.getInt("quantidade"),
+                        resultSet.getDouble("valor"));
+
+                compras.add(compra);
+            }
+
+            jsonResult = objectMapper.writeValueAsString(compras);
+        } catch (SQLException | JsonProcessingException e) {
+            System.err.println("Erro ao recuperar compras do banco de dados: " + e.getMessage());
+        }
+
+        return jsonResult;
     }
 
     @PostMapping("/realizarVenda")
@@ -32,22 +63,9 @@ public class VendaController {
         System.out.println("idCliente: " + venda.getIdCliente());
         System.out.println("quantidade: " + venda.getQuantidade());
         System.out.println("valor: " + venda.getValor());
+
         if (verificarQuantidade(venda.getIdProduto(), venda.getQuantidade())) {
             String sql = "INSERT INTO venda (idProduto, idCliente, quantidade, valor) VALUES (?, ?, ?, ?)";
-
-            /*
-             * PRECISA ARRUMAR PRA RETIRAR DA QUANTIDADE DO PRODUTO
-             * * PRECISA ARRUMAR PRA RETIRAR DA QUANTIDADE DO PRODUTO
-             * * PRECISA ARRUMAR PRA RETIRAR DA QUANTIDADE DO PRODUTO
-             * * PRECISA ARRUMAR PRA RETIRAR DA QUANTIDADE DO PRODUTO
-             * * PRECISA ARRUMAR PRA RETIRAR DA QUANTIDADE DO PRODUTO
-             * * PRECISA ARRUMAR PRA RETIRAR DA QUANTIDADE DO PRODUTO
-             * * PRECISA ARRUMAR PRA RETIRAR DA QUANTIDADE DO PRODUTO
-             * * PRECISA ARRUMAR PRA RETIRAR DA QUANTIDADE DO PRODUTO
-             * * PRECISA ARRUMAR PRA RETIRAR DA QUANTIDADE DO PRODUTO
-             * * PRECISA ARRUMAR PRA RETIRAR DA QUANTIDADE DO PRODUTO
-             * 
-             */
 
             try {
                 Connection conn = BancoDados.getConexaoMySQL();
@@ -66,6 +84,8 @@ public class VendaController {
                 } else {
                     System.out.println("Venda não realizada");
                 }
+
+                retirarQuantidade(venda.getIdProduto(), venda.getQuantidade());
 
             } catch (SQLException e) {
                 System.err.println("Erro ao realizar venda: " + e.getMessage());
@@ -94,6 +114,50 @@ public class VendaController {
             return true;
         }
         return false;
+
+    }
+
+    void retirarQuantidade(int idProduto, int qtde) {
+        int qtdPrecisaRet = qtde;
+        String sql = "select * from valores where idProduto=" + String.valueOf(idProduto) + " order by valor desc";
+
+        try (Connection conn = BancoDados.getConexaoMySQL();
+                PreparedStatement statement = conn.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int retirar = resultSet.getInt("quantidade");
+                int valor = resultSet.getInt("valor");
+
+                if (qtdPrecisaRet > retirar) {
+                    qtdPrecisaRet -= retirar;
+                    retirar = 0;
+                } else {
+                    retirar -= qtdPrecisaRet;
+                    qtdPrecisaRet = 0;
+                }
+
+                String sqlUpdate = "UPDATE valores SET quantidade = " + String.valueOf(retirar) +
+                        " WHERE idProduto = " + String.valueOf(idProduto) + " AND valor = " + String.valueOf(valor);
+
+                PreparedStatement updateStatement = conn.prepareStatement(sqlUpdate);
+
+                int linhasAfetadas = updateStatement.executeUpdate();
+
+                if (linhasAfetadas > 0) {
+                    System.out.println("Quantidade do produto atualizada!");
+                } else {
+                    System.out.println("Erro ao atualizar a quantidade do produto.");
+                }
+
+                BancoDados.deletarZero();
+
+                if (qtdPrecisaRet == 0)
+                    break;
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao recuperar compras do banco de dados: " + e.getMessage());
+        }
 
     }
 }
