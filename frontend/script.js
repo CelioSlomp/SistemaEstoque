@@ -64,14 +64,14 @@ function enviarCadastroCliente() {
 
 function exibirProdutos(jsonData) {
     const produtos = jsonData;
+    try {
+        const tableBody = document.getElementById('tabelaProdutos').getElementsByTagName('tbody')[0];
 
-    const tableBody = document.getElementById('tabelaProdutos').getElementsByTagName('tbody')[0];
+        tableBody.innerHTML = '';
 
-    tableBody.innerHTML = '';
-
-    produtos.forEach(produto => {
-        const newRow = tableBody.insertRow();
-        newRow.innerHTML = `
+        produtos.forEach(produto => {
+            const newRow = tableBody.insertRow();
+            newRow.innerHTML = `
             <td>${produto.id}</td>
             <td>${produto.nome}</td>
             <td>${produto.marca}</td>
@@ -80,7 +80,8 @@ function exibirProdutos(jsonData) {
             <td>${produto.quantidade}</td>
             <td>${produto.vlrPago}</td>
         `;
-    });
+        });
+    } catch { }
 }
 
 fetch('http://localhost:8080/produtos/visualizarProdutos')
@@ -100,19 +101,20 @@ fetch('http://localhost:8080/produtos/visualizarProdutos')
 
 function exibirClientes(jsonData) {
     const clientes = jsonData;
+    try {
+        const tableBody = document.getElementById('tabelaClientes').getElementsByTagName('tbody')[0];
 
-    const tableBody = document.getElementById('tabelaClientes').getElementsByTagName('tbody')[0];
+        tableBody.innerHTML = '';
 
-    tableBody.innerHTML = '';
-
-    clientes.forEach(cliente => {
-        const newRow = tableBody.insertRow();
-        newRow.innerHTML = `
+        clientes.forEach(cliente => {
+            const newRow = tableBody.insertRow();
+            newRow.innerHTML = `
             <td>${cliente.id}</td>
             <td>${cliente.nome}</td>
             <td>${cliente.bomPag}</td>
         `;
-    });
+        });
+    } catch { }
 }
 
 fetch('http://localhost:8080/clientes/visualizarClientes')
@@ -189,19 +191,20 @@ function enviarCompra() {
 
 function exibirClientes(jsonData) {
     const compras = jsonData;
+    try {
+        const tableBody = document.getElementById('tabelaCompras').getElementsByTagName('tbody')[0];
 
-    const tableBody = document.getElementById('tabelaCompras').getElementsByTagName('tbody')[0];
+        tableBody.innerHTML = '';
 
-    tableBody.innerHTML = '';
-
-    compras.forEach(compra => {
-        const newRow = tableBody.insertRow();
-        newRow.innerHTML = `
+        compras.forEach(compra => {
+            const newRow = tableBody.insertRow();
+            newRow.innerHTML = `
             <td>${compra.nome}</td>
             <td>${compra.quantidade}</td>
             <td>${compra.vlrPago}</td>
         `;
-    });
+        });
+    } catch { }
 }
 
 fetch('http://localhost:8080/compras/listaCompras')
@@ -250,3 +253,35 @@ function enviarVenda() {
     };
     xhr.send(dadosJSON);
 }
+
+function exibirVendas(jsonData) {
+    const vendas = jsonData;
+    try {
+        const tableBody = document.getElementById('tabelaVendas').getElementsByTagName('tbody')[0];
+
+        tableBody.innerHTML = '';
+
+        vendas.forEach(venda => {
+            const newRow = tableBody.insertRow();
+            newRow.innerHTML = `
+            <td>${venda.prodNome}</td>
+            <td>${venda.clieNome}</td>
+            <td>${venda.quantidade}</td>
+            <td>${venda.valor}</td>
+        `;
+        });
+    } catch { }
+}
+fetch('http://localhost:8080/vendas/listaVendas')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao carregar as vendas');
+        }
+        return response.json();
+    })
+    .then(data => {
+        exibirVendas(data);
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+    });

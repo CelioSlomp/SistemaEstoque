@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.edu.ifc.estoque.produtos.bd.BancoDados;
-import br.edu.ifc.estoque.produtos.entity.Compra;
 import br.edu.ifc.estoque.produtos.entity.Venda;
 
 import java.sql.Connection;
@@ -30,25 +29,25 @@ public class VendaController {
     public String listaVendas() {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonResult = "";
-        String sql = "select * from venda;";
+        String sql = "select produto.nome, cliente.nome, venda.quantidade, venda.valor from produto, cliente, venda where produto.id=venda.idProduto and cliente.id=venda.idCliente;";
 
         try (Connection conn = BancoDados.getConexaoMySQL();
                 PreparedStatement statement = conn.prepareStatement(sql);
                 ResultSet resultSet = statement.executeQuery()) {
 
-            List<Compra> compras = new ArrayList<>();
+            List<Venda> vendas = new ArrayList<>();
 
             while (resultSet.next()) {
-                Compra compra = new Compra(
-                        resultSet.getString("nome"),
-                        resultSet.getInt("idProduto"),
+                Venda venda = new Venda(
+                        resultSet.getString("produto.nome"),
+                        resultSet.getString("cliente.nome"),
                         resultSet.getInt("quantidade"),
-                        resultSet.getDouble("valor"));
+                        resultSet.getInt("valor"));
 
-                compras.add(compra);
+                vendas.add(venda);
             }
 
-            jsonResult = objectMapper.writeValueAsString(compras);
+            jsonResult = objectMapper.writeValueAsString(vendas);
         } catch (SQLException | JsonProcessingException e) {
             System.err.println("Erro ao recuperar compras do banco de dados: " + e.getMessage());
         }
