@@ -70,7 +70,7 @@ public class ProdutoController {
         System.out.println("Descrição: " + produto.getDescricao());
         System.out.println("Unidade: " + produto.getUnidade());
 
-        String sql = "INSERT INTO produto (nome, marca, tipo, descricao, unidade, quantidade) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO produto (nome, marca, tipo, descricao, unidade) VALUES (?, ?, ?, ?, ?)";
 
         try {
             Connection conn = BancoDados.getConexaoMySQL();
@@ -82,7 +82,6 @@ public class ProdutoController {
             statement.setInt(3, produto.getTipo());
             statement.setString(4, produto.getDescricao());
             statement.setString(5, produto.getUnidade());
-            statement.setInt(6, 0);
 
             // executar o sql
             int linhasAfetadas = statement.executeUpdate();
