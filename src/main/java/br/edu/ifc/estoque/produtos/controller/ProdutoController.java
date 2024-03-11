@@ -30,7 +30,7 @@ public class ProdutoController {
     public String visualizarProdutos() {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonResult = "";
-        String sql = "select * from produto, valores where id=idproduto;";
+        String sql = "select * from produto left join valores on produto.id = valores.idProduto;";
 
         try (Connection conn = BancoDados.getConexaoMySQL();
                 PreparedStatement statement = conn.prepareStatement(sql);

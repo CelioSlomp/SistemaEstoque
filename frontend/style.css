@@ -1,4 +1,4 @@
-.div_meio{
+.div_meio {
     background-color: rgb(231, 231, 231);
     border-color: black;
     position: absolute;
@@ -22,8 +22,21 @@ table {
     border: 1px solid #000000;
 }
 
-td, th {
+td,
+th {
     border: 1px solid #000000;
     text-align: center;
     padding: 4px;
+}
+
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+
+.container a {
+    display: block;
+    margin-bottom: 10px;
 }
