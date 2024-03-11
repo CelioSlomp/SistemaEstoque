@@ -8,6 +8,9 @@ public class Venda {
     int quantidade;
     double valor;
 
+    public Venda() {
+    }
+
     public Venda(int idProduto, int idCliente, int quantidade, double valor) {
         this.idProduto = idProduto;
         this.idCliente = idCliente;

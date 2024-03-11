@@ -29,7 +29,7 @@ public class VendaController {
     public String listaVendas() {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonResult = "";
-        String sql = "select produto.nome, cliente.nome, venda.quantidade, venda.valor from produto, cliente, venda where produto.id=venda.idProduto and cliente.id=venda.idCliente;";
+        String sql = "select produto.nome, cliente.nome, venda.quantidade, venda.valor from produto, cliente, venda where produto.id=venda.idProduto and cliente.id=venda.idCliente order by venda.id desc;";
 
         try (Connection conn = BancoDados.getConexaoMySQL();
                 PreparedStatement statement = conn.prepareStatement(sql);

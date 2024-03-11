@@ -1,7 +1,9 @@
 create table compra(
+  id int NOT NULL AUTO_INCREMENT,
 	idProduto integer,
-    valor double,
-    quantidade integer
+  valor double,
+  quantidade integer,
+  PRIMARY KEY (id)
 );
 
 create table valores(
@@ -28,10 +30,12 @@ CREATE TABLE produto (
 )
 
 CREATE TABLE venda (
+  id int NOT NULL AUTO_INCREMENT,
   idCliente int NOT NULL,
   idProduto int NOT NULL,
   quantidade int NOT NULL,
-  valor double NOT NULL
+  valor double NOT NULL,
+  PRIMARY KEY (id)
 )
 
 select * from produto;
