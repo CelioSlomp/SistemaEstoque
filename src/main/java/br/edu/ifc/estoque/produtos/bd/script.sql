@@ -23,7 +23,7 @@ CREATE TABLE produto (
   id int NOT NULL AUTO_INCREMENT,
   nome varchar(45) NOT NULL,
   marca varchar(45) NOT NULL,
-  tipo int NOT NULL,
+  tipo varchar(45) NOT NULL,
   descricao varchar(255) DEFAULT NULL,
   unidade varchar(8) NOT NULL,
   PRIMARY KEY (id)

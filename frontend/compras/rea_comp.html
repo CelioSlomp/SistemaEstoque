@@ -26,7 +26,8 @@
     </div>
     <div class="formulario">
         <a href="vis_comp.html">-> Visualizar Compras</a>
-        <form action="/submit" method="post" onsubmit="enviarCompra(); return false;">
+        <form id="form" action="/submit" method="post"
+            onsubmit="enviarCompra(); alert('Compra Realizada'); document.getElementById('form').reset(); return false;">
 
             <label for="Codigo">Codigo do Produto</label>
             <input type="number" id="Codigo" name="Codigo" required>

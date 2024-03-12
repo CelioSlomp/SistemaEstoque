@@ -6,14 +6,15 @@ public class Produto {
     int id;
     String nome;
     String marca;
-    int tipo;
+    String tipo;
     String descricao;
     int quantidade;
     String unidade;
     double vlrPago;
-    HashMap<Double, Integer> valoresPagos; 
+    HashMap<Double, Integer> valoresPagos;
 
-    public Produto(int id, String nome, String marca,int tipo, String descricao, String unidade, int quantidade, double vlrPago){
+    public Produto(int id, String nome, String marca, String tipo, String descricao, String unidade, int quantidade,
+            double vlrPago) {
         this.id = id;
         this.nome = nome;
         this.marca = marca;
@@ -31,23 +32,23 @@ public class Produto {
     public int getId() {
         return id;
     }
-    
+
     public String getNome() {
         return nome;
     }
-    
+
     public int getQuantidade() {
         return quantidade;
     }
-    
-    public int getTipo() {
+
+    public String getTipo() {
         return tipo;
     }
-    
+
     public String getUnidade() {
         return unidade;
     }
-    
+
     public double getVlrPago() {
         return vlrPago;
     }
@@ -76,7 +77,7 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public void setTipo(int tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 

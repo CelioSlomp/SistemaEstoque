@@ -42,7 +42,7 @@ public class ProdutoController {
                 Produto produto = new Produto(resultSet.getInt("id"),
                         resultSet.getString("nome"),
                         resultSet.getString("marca"),
-                        resultSet.getInt("tipo"),
+                        resultSet.getString("tipo"),
                         resultSet.getString("descricao"),
                         resultSet.getString("unidade"),
                         resultSet.getInt("quantidade"),
@@ -79,7 +79,7 @@ public class ProdutoController {
             // Atribuir valores aos parâmetros
             statement.setString(1, produto.getNome());
             statement.setString(2, produto.getMarca());
-            statement.setInt(3, produto.getTipo());
+            statement.setString(3, produto.getTipo());
             statement.setString(4, produto.getDescricao());
             statement.setString(5, produto.getUnidade());
 
