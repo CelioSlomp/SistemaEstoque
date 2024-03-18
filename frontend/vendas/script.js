@@ -76,9 +76,7 @@ function pegarProdutos(jsonData) {
             optionElement.textContent = `${produto.nome}, ${produto.marca}`;
             tableBody.appendChild(optionElement);
         });
-    } catch (error) {
-        console.error('Erro:', error);
-    }
+    } catch (error) { }
 }
 
 fetch('http://localhost:8080/produtos/visualizarProdutos')
@@ -108,9 +106,7 @@ function pegarClientes(jsonData) {
             optionElement.textContent = `${cliente.nome}`;
             tableBody.appendChild(optionElement);
         });
-    } catch (error) {
-        console.error('Erro:', error);
-    }
+    } catch (error) { }
 }
 
 fetch('http://localhost:8080/clientes/visualizarClientes')

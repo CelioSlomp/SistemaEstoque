@@ -74,11 +74,8 @@ function pegarProdutos(jsonData) {
             optionElement.textContent = `${produto.nome}, ${produto.marca}`;
             tableBody.appendChild(optionElement);
         });
-    } catch (error) {
-        console.error('Erro:', error);
-    }
+    } catch (error) { }
 }
-
 fetch('http://localhost:8080/produtos/visualizarProdutos')
     .then(response => {
         if (!response.ok) {
