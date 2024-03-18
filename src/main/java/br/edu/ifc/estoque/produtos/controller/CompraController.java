@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +23,7 @@ import br.edu.ifc.estoque.produtos.entity.Compra;
 
 @RestController
 @RequestMapping("/compras")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+// @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class CompraController {
     @GetMapping("/listaCompras")
     public String lista_compras() {

@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
+//import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,29 +24,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("/clientes")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+// @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class ClienteController {
 
     @GetMapping("/visualizarClientes")
-    public String visualizarClientes(){
+    public String visualizarClientes() {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonResult = "";
         String sql = "SELECT * FROM cliente";
-        
+
         try (Connection conn = BancoDados.getConexaoMySQL();
-            PreparedStatement statement = conn.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery()) {
-            
+                PreparedStatement statement = conn.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery()) {
+
             List<Cliente> clientes = new ArrayList<>();
-            
+
             while (resultSet.next()) {
-                Cliente cliente = new Cliente(resultSet.getInt("id"), 
-                                              resultSet.getString("nome"), 
-                                              resultSet.getInt("bomPag"));
-                
+                Cliente cliente = new Cliente(resultSet.getInt("id"),
+                        resultSet.getString("nome"),
+                        resultSet.getInt("bomPag"));
+
                 clientes.add(cliente);
             }
-            
+
             // Converter lista de clientes para JSON
             jsonResult = objectMapper.writeValueAsString(clientes);
         } catch (SQLException | JsonProcessingException e) {
@@ -57,58 +57,58 @@ public class ClienteController {
     }
 
     @PostMapping("/cadastrarCliente")
-    public void cadastrarCliente(@RequestBody Cliente cliente){
+    public void cadastrarCliente(@RequestBody Cliente cliente) {
         // Imprimir os dados recebidos na tela
         System.out.println("Nome: " + cliente.getNome());
         System.out.println("bomPag: " + cliente.getBomPag());
 
         String sql = "INSERT INTO cliente (nome, bomPag) VALUES (?, ?)";
-        
+
         try {
             Connection conn = BancoDados.getConexaoMySQL();
             PreparedStatement statement = conn.prepareStatement(sql);
-            
+
             // Atribuir valores aos parâmetros
             statement.setString(1, cliente.getNome());
             statement.setInt(2, cliente.getBomPag());
-            
+
             // executar o sql
             int linhasAfetadas = statement.executeUpdate();
-            
+
             if (linhasAfetadas > 0) {
                 System.out.println("Cliente Inserido!");
             } else {
                 System.out.println("Cliente não Inserido");
             }
-            
+
         } catch (SQLException e) {
             System.err.println("Erro ao inserir cliente: " + e.getMessage());
         }
-    
+
     }
 
     @PostMapping("/deletarCliente")
-    public void deletarCliente(@RequestBody Cliente cliente){
+    public void deletarCliente(@RequestBody Cliente cliente) {
         String id = String.valueOf(cliente.getId());
         System.out.println("ID a ser deletado:" + id);
         String sql = "DELETE FROM cliente WHERE cliente.id=" + id;
-        
+
         try {
             Connection conn = BancoDados.getConexaoMySQL();
             PreparedStatement statement = conn.prepareStatement(sql);
 
             // executar o sql
             int linhasAfetadas = statement.executeUpdate();
-            
+
             if (linhasAfetadas > 0) {
                 System.out.println("Cliente Deletado!");
             } else {
                 System.out.println("Cliente não Deletado");
             }
-            
+
         } catch (SQLException e) {
             System.err.println("Erro ao inserir cliente: " + e.getMessage());
         }
-    
+
     }
 }
