@@ -71,7 +71,7 @@ function pegarProdutos(jsonData) {
         produtos.forEach(produto => {
             const optionElement = document.createElement('option');
             optionElement.value = produto.id;
-            optionElement.textContent = `${produto.nome}`;
+            optionElement.textContent = `${produto.nome}, ${produto.marca}`;
             tableBody.appendChild(optionElement);
         });
     } catch (error) {

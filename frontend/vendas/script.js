@@ -1,6 +1,6 @@
 function enviarVenda() {
-    var idProduto = document.getElementById('idProduto').value;
-    var idCliente = document.getElementById('idCliente').value;
+    var idProduto = document.getElementById('produtos').value;
+    var idCliente = document.getElementById('clientes').value;
     var quantidade = document.getElementById('Quantidade').value;
     var valor = document.getElementById('Valor').value;
 
@@ -58,6 +58,70 @@ fetch('http://localhost:8080/vendas/listaVendas')
     })
     .then(data => {
         exibirVendas(data);
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+    });
+
+function pegarProdutos(jsonData) {
+    const produtos = jsonData;
+    try {
+        const tableBody = document.getElementById('produtos');
+
+        tableBody.innerHTML = '';
+
+        produtos.forEach(produto => {
+            const optionElement = document.createElement('option');
+            optionElement.value = produto.id;
+            optionElement.textContent = `${produto.nome}, ${produto.marca}`;
+            tableBody.appendChild(optionElement);
+        });
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+}
+
+fetch('http://localhost:8080/produtos/visualizarProdutos')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao carregar os produtos');
+        }
+        return response.json();
+    })
+    .then(data => {
+        pegarProdutos(data);
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+    });
+
+function pegarClientes(jsonData) {
+    const clientes = jsonData;
+    try {
+        const tableBody = document.getElementById('clientes');
+
+        tableBody.innerHTML = '';
+
+        clientes.forEach(cliente => {
+            const optionElement = document.createElement('option');
+            optionElement.value = cliente.id;
+            optionElement.textContent = `${cliente.nome}`;
+            tableBody.appendChild(optionElement);
+        });
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+}
+
+fetch('http://localhost:8080/clientes/visualizarClientes')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao carregar os produtos');
+        }
+        return response.json();
+    })
+    .then(data => {
+        pegarClientes(data);
     })
     .catch(error => {
         console.error('Erro:', error);

@@ -10,32 +10,36 @@
 </head>
 
 <body>
-    <div class="container">
-        <p>Produtos:</p>
+    <navbar>
         <a href="../produtos/vis_prod.html">Visualizar Produtos</a>
         <a href="../produtos/cad_prod.html">Cadastrar Produtos</a>
-        <p>Clientes:</p>
         <a href="../clientes/vis_clie.html">Visualizar Clientes</a>
         <a href="../clientes/cad_clie.html">Cadastrar Clientes</a>
-        <p>Vendas:</p>
         <a href="../vendas/vis_vend.html">Visualizar Vendas</a>
         <a href="../vendas/rea_vend.html">Realizar Venda</a>
-        <p>Compras:</p>
         <a href="../compras/vis_comp.html">Visualizar Compras</a>
         <a href="../compras/rea_comp.html">Realizar Compra</a>
-    </div>
+    </navbar>
+
     <div class="formulario">
         <a href="vis_vend.html">-> Visualizar Vendas</a>
         <form id="form" action="/submit" method="post"
             onsubmit="enviarVenda(); alert('Venda Realizada'); document.getElementById('form').reset(); return false;">
 
-            <label for="idProduto">Codigo Produto</label>
-            <input type="number" id="idProduto" name="idProduto" required>
-            <br>
+            <label for="produtos">Selecione o produto</label>
+            <select name="produto" id="produtos">
 
-            <label for="idCliente">Codigo Cliente</label>
-            <input type="number" id="idCliente" name="idCliente" required>
-            <br>
+
+
+            </select>
+
+            <label for="clientes">Selecione o cliente</label>
+            <select name="cliente" id="clientes">
+
+
+
+            </select>
+
 
             <label for="Quantidade">Quantidade</label>
             <input type="number" id="Quantidade" name="Quantidade" required>
