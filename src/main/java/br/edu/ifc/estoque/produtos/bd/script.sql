@@ -17,7 +17,7 @@ CREATE TABLE cliente (
   nome varchar(255) NOT NULL,
   bomPag int NOT NULL,
   PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE produto (
   id int NOT NULL AUTO_INCREMENT,
@@ -27,7 +27,7 @@ CREATE TABLE produto (
   descricao varchar(255) DEFAULT NULL,
   unidade varchar(8) NOT NULL,
   PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE venda (
   id int NOT NULL AUTO_INCREMENT,
@@ -36,7 +36,7 @@ CREATE TABLE venda (
   quantidade int NOT NULL,
   valor double NOT NULL,
   PRIMARY KEY (id)
-)
+);
 
 select * from produto;
 select * from cliente;

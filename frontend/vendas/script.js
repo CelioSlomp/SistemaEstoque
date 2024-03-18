@@ -12,7 +12,7 @@ function enviarVenda() {
     };
 
     var dadosJSON = JSON.stringify(dados);
-
+    console.log(dadosJSON);
     var xhr = new XMLHttpRequest();
 
     xhr.open('POST', 'http://localhost:8080/vendas/realizarVenda', true);

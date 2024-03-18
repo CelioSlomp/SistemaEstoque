@@ -8,7 +8,7 @@ public class BancoDados {
 		Connection conn = null;
 
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/estoque", "root", "1234");
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/estoque", "celiols", "1234");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

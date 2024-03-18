@@ -28,11 +28,12 @@
         <a href="cad_clie.html">Cadastrar Cliente</a> <br>
         <input type="number" name="deleteCliente" id="deleteCliente"
             placeholder="Digite o CODIGO do cliente a ser excluido">
-        <input type="button" value="EXCLUIR" onclick="deletarCliente(); return false;">
+        <input type="button" value="EXCLUIR"
+            onclick="deletarCliente(); alert('Cliente Excluido'); document.getElementById('deletarCliente').reset(); return false;">
         <table id="tabelaClientes">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Codigo</th>
                     <th>Nome</th>
                     <th>Bom Pagador (0 - 10)</th>
                 </tr>
