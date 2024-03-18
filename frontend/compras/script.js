@@ -1,5 +1,5 @@
 function enviarCompra() {
-    var id = document.getElementById('Codigo').value;
+    var id = document.getElementById('produtos').value;
     var quantidade = document.getElementById('Quantidade').value;
     var preco = document.getElementById('Preco').value;
 
@@ -56,6 +56,38 @@ fetch('http://localhost:8080/compras/listaCompras')
     })
     .then(data => {
         exibirCompras(data);
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+    });
+
+function pegarProdutos(jsonData) {
+    const produtos = jsonData;
+    try {
+        const tableBody = document.getElementById('produtos');
+
+        tableBody.innerHTML = '';
+
+        produtos.forEach(produto => {
+            const optionElement = document.createElement('option');
+            optionElement.value = produto.id;
+            optionElement.textContent = `${produto.nome}`;
+            tableBody.appendChild(optionElement);
+        });
+    } catch (error) {
+        console.error('Erro:', error);
+    }
+}
+
+fetch('http://localhost:8080/produtos/visualizarProdutos')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao carregar os produtos');
+        }
+        return response.json();
+    })
+    .then(data => {
+        pegarProdutos(data);
     })
     .catch(error => {
         console.error('Erro:', error);

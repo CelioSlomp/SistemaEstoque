@@ -10,7 +10,13 @@ public class BancoDados {
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/estoque", "celiols", "1234");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Não foi possível conectar utilizando o user celiols");
+		}
+
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/estoque", "root", "1234");
+		} catch (SQLException e) {
+			System.out.println("Não foi possível conectar utilizando o user root");
 		}
 
 		return conn;

@@ -72,3 +72,16 @@ body {
 .formulario button:hover {
     background-color: #45a049;
 }
+
+.formulario select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+
+    max-height: 200px;
+    overflow-y: auto;
+}
