@@ -6,18 +6,18 @@ public class BancoDados {
 	public static java.sql.Connection getConexaoMySQL() {
 		// Atributo do tipo Connection
 		Connection conn = null;
-
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/estoque", "celiols", "1234");
-		} catch (SQLException e) {
-			System.out.println("Não foi possível conectar utilizando o user celiols");
-		}
-
-		try {
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/estoque", "root", "1234");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/estoque", "root", "");
 		} catch (SQLException e) {
 			System.out.println("Não foi possível conectar utilizando o user root");
+			try {
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/estoque", "celiols", "");
+			} catch (SQLException er) {
+				System.out.println("Não foi possível conectar utilizando o user celiols");
+			}
 		}
+
+
 
 		return conn;
 	}
